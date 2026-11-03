@@ -54,6 +54,66 @@
           "patchedExpectation": "The installed focal backport completes both cases without invalid reads; a normal xmllint consumer check passes."
         }
       ]
+    },
+    {
+      "id": "cve-2026-6653-debian",
+      "kind": "security",
+      "file": "CVE-2026-6653-debian.patch",
+      "sha256": "cb8ace38d864e912a69307c33f1f931042bf1df83cd0c2d3c526c1a9348a5021",
+      "title": "Preserve parameter entity input ownership at parser EOF",
+      "description": "Backports the parser-stop handling needed to avoid a heap use-after-free while parsing a crafted parameter-entity DTD.",
+      "cves": ["CVE-2026-6653"],
+      "upstream": {
+        "repository": "https://gitlab.gnome.org/GNOME/libxml2",
+        "commit": "f19a95108a32b40eaa3b16b41d7a687896e61ce5",
+        "url": "https://gitlab.gnome.org/GNOME/libxml2/-/commit/f19a95108a32b40eaa3b16b41d7a687896e61ce5",
+        "additionalCommits": [
+          {
+            "commit": "e129c1d1a27abdeaab44f4d59eb0cb5052df7c6f",
+            "url": "https://gitlab.gnome.org/GNOME/libxml2/-/commit/e129c1d1a27abdeaab44f4d59eb0cb5052df7c6f",
+            "purpose": "Stops xmlSkipBlankChars after parser EOF so allocation-failure handling cannot loop indefinitely."
+          }
+        ]
+      },
+      "appliesTo": [
+        {"target": "debian-bookworm-amd64", "sourceVersion": "2.9.14+dfsg-1.3~deb12u6"},
+        {"target": "debian-trixie-amd64", "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3"}
+      ],
+      "dep3": {
+        "origin": "Adapted from upstream parser-stop commit f19a9510 and the xmlSkipBlankChars EOF guard in e129c1d1 for Debian's 2.9.14-based source.",
+        "forwarded": "not-needed",
+        "lastUpdate": "2026-11-03"
+      },
+      "referenceFiles": [
+        {
+          "path": "tests/fixtures/cve-2026-6653-source.md",
+          "sha256": "8d666d795305196f57209f35b675739377421ddb485758e5764354ef3502688a",
+          "purpose": "Records the PoC source and its explicit license limitation."
+        },
+        {
+          "path": "tests/fixtures/cve-2026-6653-harness.cc",
+          "sha256": "8ed42a6f2a08d4073561d4f94f76fc339656985e3cc4778014cb05e7da12c30d",
+          "purpose": "Replays the public parser PoC with the upstream fuzz-harness options and serialization path."
+        }
+      ],
+      "tests": [
+        {
+          "id": "parameter-entity-eof-use-after-free",
+          "runner": "getpatched/platform:verification/regression.py",
+          "fixtures": [
+            {
+              "path": "tests/fixtures/cve-2026-6653-harness.cc",
+              "sha256": "8ed42a6f2a08d4073561d4f94f76fc339656985e3cc4778014cb05e7da12c30d"
+            },
+            {
+              "path": "tests/fixtures/cve-2026-6653.xml",
+              "sha256": "1e1b97af5d7c617b2b33f65cf44e3154daef357cf261b82fe7012ac438a65439"
+            }
+          ],
+          "baselineExpectation": "Exact-source ASan builds report a heap use-after-free; the installed-package runner must report a Valgrind invalid read in libxml2 during xmlReadMemory with the freed entity-stream allocation in the trace.",
+          "patchedExpectation": "The source-build ASan and installed-package Valgrind probes complete without invalid accesses; a normal xmllint consumer check passes."
+        }
+      ]
     }
   ]
 }

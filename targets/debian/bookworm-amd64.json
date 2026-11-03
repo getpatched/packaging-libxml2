@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 2,
+  "id": "debian-bookworm-amd64",
+  "base": {
+    "distribution": "Debian",
+    "release": "12",
+    "codename": "bookworm",
+    "sourcePocket": "release",
+    "architecture": "amd64"
+  },
+  "source": {
+    "format": "3.0 (quilt)",
+    "version": "2.9.14+dfsg-1.3~deb12u6",
+    "publication": "https://security-tracker.debian.org/tracker/CVE-2026-6653",
+    "publishedAt": "2026-06-07T15:53:53Z",
+    "descriptor": {
+      "name": "libxml2_2.9.14+dfsg-1.3~deb12u6.dsc",
+      "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3~deb12u6.dsc",
+      "sha256": "d86ce3efb1b75d2781f72f5cdd187474c148a915d610295c85162681bb070a65",
+      "bytes": 2974
+    },
+    "files": [
+      {
+        "name": "libxml2_2.9.14+dfsg.orig.tar.xz",
+        "role": "upstream-source",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg.orig.tar.xz",
+        "sha256": "4fe913dec8b1ab89d13b489b419a8203176ea39e931eaa0d25b17eafb9c279e9",
+        "bytes": 2351200
+      },
+      {
+        "name": "libxml2_2.9.14+dfsg-1.3~deb12u6.debian.tar.xz",
+        "role": "debian-packaging",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3~deb12u6.debian.tar.xz",
+        "sha256": "f33a99a0018cbb94aadc3bf26661e401cb90dff856aa170faf7239151ee9b9ac",
+        "bytes": 56668
+      }
+    ],
+    "signatureVerification": {
+      "verified": false,
+      "note": "The signed Debian Bookworm Sources index and its source hashes were verified with Debian's archive key; the individual .dsc uploader signature was not separately verified."
+    }
+  },
+  "supportedSourceVersions": ["2.9.14+dfsg-1.3~deb12u6"],
+  "packageVersion": "2.9.14+dfsg-1.3~deb12u6+getpatched1",
+  "releaseSerial": 1,
+  "changelog": {
+    "distribution": "bookworm",
+    "urgency": "high",
+    "maintainer": "GetPatched Maintainers <packages@getpatched.dev>",
+    "date": "Tue, 03 Nov 2026 00:00:00 +0000"
+  },
+  "binaryPackages": ["libxml2", "libxml2-utils", "libxml2-dev"],
+  "advisoryPackages": ["libxml2"],
+  "patches": ["cve-2026-6653-debian"],
+  "buildPatches": [],
+  "releaseAccess": {
+    "policy": "public-after-checks",
+    "sponsorDelayHours": 0,
+    "sponsorEligibility": null,
+    "earlyBinaryLicenseId": null,
+    "publicContributionSpdx": "MIT",
+    "earlyUse": ["private", "commercial"],
+    "earlyRedistributionAllowed": false,
+    "publicLicenseScope": "getpatched-authored-contributions-only"
+  },
+  "status": "unreleased-development-candidate"
+}
