@@ -92,7 +92,7 @@
         },
         {
           "path": "tests/fixtures/cve-2026-6653-harness.cc",
-          "sha256": "1481c556ce6c36e020910528bc46ff72062a32dccfe4ced2dcb6c2e7048d2221",
+          "sha256": "8ed42a6f2a08d4073561d4f94f76fc339656985e3cc4778014cb05e7da12c30d",
           "purpose": "Replays the public parser PoC with the upstream fuzz-harness options and serialization path."
         }
       ],
@@ -103,7 +103,7 @@
           "fixtures": [
             {
               "path": "tests/fixtures/cve-2026-6653-harness.cc",
-              "sha256": "1481c556ce6c36e020910528bc46ff72062a32dccfe4ced2dcb6c2e7048d2221"
+              "sha256": "8ed42a6f2a08d4073561d4f94f76fc339656985e3cc4778014cb05e7da12c30d"
             },
             {
               "path": "tests/fixtures/cve-2026-6653.xml",
