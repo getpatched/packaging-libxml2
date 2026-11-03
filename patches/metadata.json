@@ -269,11 +269,11 @@
           "fixtures": [
             {
               "path": "tests/fixtures/cve-2026-74860-python-sax.py",
-              "sha256": "862fa04998e693d4ce82bd25c65c1d424cec5d62b6315bd17e69f64805360aeb"
+              "sha256": "e4c10f21db0235ca8178ff44343d9a9f76eccff75ddba8bb090f41a36192ced9"
             }
           ],
-          "baselineExpectation": "The exact installed Debian Trixie python3-libxml2 package must reach the attributeDecl probe and terminate by SIGSEGV or SIGABRT while parsing an enumerated DTD attribute.",
-          "patchedExpectation": "The installed patched Python binding completes the same SAX callback and exits successfully; the libxml2 C consumer check also passes."
+          "baselineExpectation": "The getpatched/platform verification runner executes the installed Debian Trixie python3-libxml2 probe under Valgrind. The probe must emit its pre-parse and callback-entry markers; Valgrind must exit 97, report a nonzero error summary, and show an invalid-read stack frame in libxml2mod.so whose address is in freed memory.",
+          "patchedExpectation": "The same installed-package probe under Valgrind must emit pre-parse, callback-entry, and post-parse callback-passed markers, exit 0, contain no invalid-read/write blocks, and report zero errors; the libxml2 C consumer check also passes."
         }
       ]
     }
