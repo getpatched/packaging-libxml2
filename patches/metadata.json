@@ -127,9 +127,9 @@
       "id": "cve-2026-86144-debian-trixie",
       "kind": "security",
       "file": "CVE-2026-86144-debian-trixie.patch",
-      "sha256": "0e8ad76913405241ddd773e097310fe7577cb727ac62225c48baa1b862ed3bf5",
+      "sha256": "0d15fe9c3bec8a16bc9b04b336d2c370b71c187ae1edc35ddf804c39f4b80ca9",
       "title": "Propagate parser security flags through XInclude APIs",
-      "description": "Carries XML_PARSE_NONET from the parsed document into the public XInclude convenience APIs, preventing a later XInclude pass from triggering a network load when parsing disabled network access.",
+      "description": "Carries XML_PARSE_NONET from the parsed document into the public XInclude convenience APIs and text-include parser context, preventing a later XInclude pass from triggering a network load when parsing disabled network access.",
       "cves": [
         "CVE-2026-86144"
       ],
