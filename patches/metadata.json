@@ -239,9 +239,9 @@
       "id": "cve-2026-86141-debian-trixie",
       "kind": "security",
       "file": "CVE-2026-86141-debian-trixie.patch",
-      "sha256": "8f9d7528fdd5b1b717f103f5660c0e86904863f965822121d7edc2c4a0eefce1",
-      "title": "Check regexp string duplication before reading its length",
-      "description": "Checks the xmlStrdup result in xmlRegNewParserCtxt before strlen can dereference a NULL pointer after allocation failure.",
+      "sha256": "000df16e82e7d4eb232cdbb2811ed5b8fa091b8815f142069d7df6cba5d9d4c2",
+      "title": "Check regexp string duplication before using it",
+      "description": "Backports the upstream allocation-failure guard to Debian's 2.9.14 source, which uses the duplicated string without the newer length calculation.",
       "cves": ["CVE-2026-86141"],
       "upstream": {
         "repository": "https://gitlab.gnome.org/GNOME/libxml2",
@@ -255,7 +255,7 @@
         }
       ],
       "dep3": {
-        "origin": "Backport of GNOME libxml2 commit e89a8aae for Debian Trixie's 2.9.14-based source.",
+        "origin": "Adapted from GNOME libxml2 commit e89a8aae for Debian Trixie's 2.9.14-based source; the NULL check is placed before the copied string is assigned to the parser because this source does not calculate ret->len here.",
         "forwarded": "not-needed",
         "lastUpdate": "2026-11-03"
       },
@@ -270,7 +270,7 @@
               "sha256": "2df2abdb554924196afecbbdb3767a70a83d7e3930a365c411ceca9382e7aee3"
             }
           ],
-          "baselineExpectation": "A custom xmlMemSetup malloc callback fails the exact regexp-copy allocation during xmlRegexpCompile. Memcheck must report a NULL invalid read in strlen through xmlRegNewParserCtxt and xmlRegexpCompile, followed by SIGSEGV.",
+          "baselineExpectation": "A custom xmlMemSetup malloc callback fails the exact regexp-copy allocation during xmlRegexpCompile. Memcheck must report a one-byte NULL invalid read in libxml2 during xmlRegexpCompile, followed by SIGSEGV.",
           "patchedExpectation": "The installed patched package handles the injected allocation failure, returns NULL from compilation, and exits with zero Memcheck errors; the xmllint consumer check also passes."
         }
       ]
