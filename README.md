@@ -2,39 +2,39 @@
 
 GetPatched maintains selected, tested security backports for package versions whose normal public support has ended. This repository contains the recipe and evidence inputs; it does not vendor a duplicate upstream source tree.
 
-## Current target
+## Candidate targets
 
-| Field | Value |
-|---|---|
-| Target ID | ubuntu-focal-amd64 |
-| Distribution | Ubuntu 20.04 LTS (focal), public updates source |
-| Source package and pinned version | libxml2 · 2.9.10+dfsg-5ubuntu0.20.04.10 |
-| GetPatched version | 2.9.10+dfsg-5ubuntu0.20.04.10+getpatched1 |
-| Runtime packages | libxml2, libxml2-utils |
-| Access | Sponsor first; public after 168 hours and release checks |
-| Release state | Development candidate; no production package is published |
+| Target ID | Pinned source | GetPatched version | CVE | State |
+|---|---|---|---|---|
+| `ubuntu-focal-amd64` | `2.9.10+dfsg-5ubuntu0.20.04.10` | `2.9.10+dfsg-5ubuntu0.20.04.10+getpatched1` | CVE-2025-49794, CVE-2025-49796 | Existing sponsor-first development candidate |
+| `debian-bookworm-amd64` | `2.9.14+dfsg-1.3~deb12u6` | `2.9.14+dfsg-1.3~deb12u6+getpatched1` | CVE-2026-6653 | Source-level PoC and backport verified; package verification pending |
+| `debian-trixie-amd64` | `2.12.7+dfsg+really2.9.14-2.1+deb13u3` | `2.12.7+dfsg+really2.9.14-2.1+deb13u3+getpatched1` | CVE-2026-6653 | Source-level PoC and backport verified; package verification pending |
+
+The Debian targets are free and public-after-checks; no sponsor delay applies. They are unreleased candidates. No production package or signed APT index is published.
 
 ## Recipe structure and target support
 
-package-manifest.json is the package index. It points to targets/ubuntu/focal-amd64.json, which holds this target's exact base, source publication, pinned .dsc and source archives, supported source versions, package version, binary names, patch IDs, and changelog entry. The platform repository's packages.json separately pins the target's build image, snapshot repositories, runner, scan ecosystem, release policy, and whether repository publication is supported.
+package-manifest.json is the package index. Each target file holds its exact base, source publication, pinned .dsc and source archives, supported source versions, package version, binary names, patch IDs, and changelog entry. The platform repository's packages.json separately pins the target's build image, snapshot repositories, runner, scan ecosystem, release policy, and whether repository publication is supported.
 
-A target ID names a distribution, release codename, and architecture, such as ubuntu-focal-amd64 or debian-bookworm-arm64. Add another target as a separate file under targets/<distribution>/<codename>-<architecture>.json, then add its independent platform profile and package policy. Do not claim support or enable publication until that exact combination passes a clean build, installed regressions, vulnerability scans, and an APT client test. This pilot currently supports and can publish only Ubuntu Focal amd64. Debian, other Ubuntu releases, and arm64 are not yet claimed.
+A target ID names a distribution, release codename, and architecture, such as ubuntu-focal-amd64 or debian-bookworm-arm64. Add another target as a separate file under targets/<distribution>/<codename>-<architecture>.json, then add its independent platform profile and package policy. Ubuntu Focal amd64 is an existing development target. The new Debian targets remain unverified candidates until each exact combination passes a clean package build, installed regressions, vulnerability scans, consumer checks, and an APT client test. Debian package publication is disabled; arm64 is not claimed.
 
-The fetched source is the distribution's complete source package, including distro-specific packaging and existing patches. An upstream Git submodule alone would omit that state. Source files are pinned by URL, size, and SHA-256. The source descriptor's OpenPGP signature has not been verified; the recipe records that limitation.
+The fetched source is the distribution's complete source package, including distro-specific packaging and existing patches. An upstream Git submodule alone would omit that state. Source files are pinned by URL, size, and SHA-256. For the Debian targets, signed Sources indexes authenticate the descriptor and source archive hashes; the individual .dsc uploader signatures have not been separately verified. The Ubuntu Focal descriptor has the existing limitation recorded in its target file.
 
 ## Patch and version policy
 
 patches/metadata.json records each patch's purpose, checksum, upstream provenance, CVEs, regression tests, and appliesTo targets. An applicability entry may pin one exact source version or express inclusive/exclusive Debian-version bounds. The target's supportedSourceVersions remains an explicit allowlist: a version inside a patch range is not enough to build unless the target lists it and the build and regressions pass. Current patches are pinned to the exact version above.
 
-The output version retains the full Ubuntu source version and adds +getpatched1. A new patch release from the same base advances the serial (+getpatched2); a changed distro source version gets its own reviewed target pin and release policy.
+The output version retains the full distribution source version and appends +getpatchedN. A new patch release from the same target base advances that target's serial; a changed distro source version gets its own reviewed target pin and release policy.
 
 CVE-2025-49794-49796.patch adapts GNOME's Schematron lifetime and node-type checks for the pinned Focal source. It addresses CVE-2025-49794 and CVE-2025-49796, from upstream commit 81cef8c5 (https://gitlab.gnome.org/GNOME/libxml2/-/commit/81cef8c5b5aec2acdf5707e57a6db0c8d1d0abca). The pinned fixtures exercise both cases under Valgrind against the vulnerable baseline and installed patched package, followed by an xmllint consumer check.
 
+CVE-2026-6653-debian.patch backports the parser EOF ownership and stop-loop changes needed by the pinned Bookworm and Trixie parser sources. The regression inputs include Launchpad's public XML fixture and the checked-in Chromium-derived fuzz harness. The source-level preflight built each exact distro source with AddressSanitizer: both pristine baselines reproduced a heap use-after-free in `xmlParseInternalSubset`, and both patched builds exited cleanly. Separately, `verification/regression.py` compiles the checked-in harness against the installed `libxml2-dev` and uses Valgrind for the package-level baseline/patched gate. That installed-package gate, scans, consumer checks, CI and independent review remain required before these targets can count as verified.
+
 ## Sponsorship and licensing
 
-Every active individual GitHub Sponsors tier grants access to official early-channel binaries for this sponsor-first target; there is no tier allowlist or minimum amount. A one-time sponsorship qualifies only while GitHub reports it active. Organization sponsorships are not yet supported because the service cannot securely map one to a specific GitHub user; organization membership alone never grants access. Access ends when GitHub reports the sponsorship inactive. Early binaries may be used privately and commercially, but may not be redistributed, sublicensed, mirrored, or shared before public release. Third-party upstream and Ubuntu license rights and notices remain in force. See LICENSES/GETPATCHED-EARLY-ACCESS-1.2.md.
+Every active individual GitHub Sponsors tier grants access to official early-channel binaries for the Focal sponsor-first target; there is no tier allowlist or minimum amount. The Debian candidates have no sponsor delay and are intended to be public after their checks pass. A one-time sponsorship qualifies only while GitHub reports it active. Organization sponsorships are not yet supported because the service cannot securely map one to a specific GitHub user; organization membership alone never grants access. Access ends when GitHub reports the sponsorship inactive. Early binaries may be used privately and commercially, but may not be redistributed, sublicensed, mirrored, or shared before public release. Preserve the applicable Ubuntu or Debian source copyright file from `LICENSES/SOURCE-COPYRIGHTS.md` together with the upstream component licenses.
 
-GetPatched-authored recipes, patches, tests, and documentation are MIT-licensed from day one. Anyone may build from public source and redistribute an independent build under MIT and applicable third-party licenses. The MIT file does not replace upstream or Ubuntu copyright and licensing obligations in the source or compiled package. Preserve LICENSES/ubuntu-source-copyright and comply with each included component's license. When this target becomes public, the early-binary redistribution restriction ends for its official binaries.
+GetPatched-authored recipes, patches, tests, and documentation are MIT-licensed from day one. Anyone may build from public source and redistribute an independent build under MIT and applicable third-party licenses. The MIT file does not replace upstream or distro copyright and licensing obligations in the source or compiled package. Preserve the source notices linked from `LICENSES/SOURCE-COPYRIGHTS.md` and comply with each included component's license. The regression harness retains its Chromium BSD-3-Clause notice; the public PoC fixture is attributed separately and no license is asserted for it.
 
 ## Build and verification
 
@@ -43,5 +43,10 @@ From a clean checkout on a disposable Linux Docker host:
     git clone https://github.com/getpatched/platform.git
     git clone --branch getpatched/focal https://github.com/getpatched/packaging-libxml2.git
     python3 platform/scripts/build-package.py --source packaging-libxml2 --target ubuntu-focal-amd64 --output build/libxml2
+
+For the unpublished Debian candidates, use the target branch after review and merge:
+
+    python3 platform/scripts/build-package.py --source packaging-libxml2 --target debian-bookworm-amd64 --output build/libxml2-bookworm
+    python3 platform/scripts/build-package.py --source packaging-libxml2 --target debian-trixie-amd64 --output build/libxml2-trixie
 
 The builder consumes the target's pinned inputs, runs baseline and patched installed-package checks, retains scan evidence, and tests signed APT installation of the binary and source packages. It does not publish binaries. Ubuntu Pro/ESM compatibility is not tested or claimed. The prior full-source snapshot remains on the legacy branch: https://github.com/getpatched/packaging-libxml2/tree/legacy

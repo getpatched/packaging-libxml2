@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 2,
+  "id": "debian-trixie-amd64",
+  "base": {
+    "distribution": "Debian",
+    "release": "13",
+    "codename": "trixie",
+    "sourcePocket": "release",
+    "architecture": "amd64"
+  },
+  "source": {
+    "format": "3.0 (quilt)",
+    "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+    "publication": "https://security-tracker.debian.org/tracker/CVE-2026-6653",
+    "publishedAt": "2026-06-07T17:02:23Z",
+    "descriptor": {
+      "name": "libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.dsc",
+      "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.dsc",
+      "sha256": "04b1da890535b11e3db231f39114ee09e643badceff79441d749d0ca78efaaa5",
+      "bytes": 3085
+    },
+    "files": [
+      {
+        "name": "libxml2_2.9.14+dfsg.orig.tar.xz",
+        "role": "upstream-source",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg.orig.tar.xz",
+        "sha256": "4fe913dec8b1ab89d13b489b419a8203176ea39e931eaa0d25b17eafb9c279e9",
+        "bytes": 2351200
+      },
+      {
+        "name": "libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.debian.tar.xz",
+        "role": "debian-packaging",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.debian.tar.xz",
+        "sha256": "3b6d265f482d6a8fbe3c056d2006fb3b563b4a838f7258b388ac5f0b29206921",
+        "bytes": 58040
+      }
+    ],
+    "signatureVerification": {
+      "verified": false,
+      "note": "The signed Debian Trixie Sources index and its source hashes were verified with Debian's archive key; the individual .dsc uploader signature was not separately verified."
+    }
+  },
+  "supportedSourceVersions": ["2.12.7+dfsg+really2.9.14-2.1+deb13u3"],
+  "packageVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3+getpatched1",
+  "releaseSerial": 1,
+  "changelog": {
+    "distribution": "trixie",
+    "urgency": "high",
+    "maintainer": "GetPatched Maintainers <packages@getpatched.dev>",
+    "date": "Tue, 03 Nov 2026 00:00:00 +0000"
+  },
+  "binaryPackages": ["libxml2", "libxml2-utils", "libxml2-dev"],
+  "advisoryPackages": ["libxml2"],
+  "patches": ["cve-2026-6653-debian"],
+  "buildPatches": [],
+  "releaseAccess": {
+    "policy": "public-after-checks",
+    "sponsorDelayHours": 0,
+    "sponsorEligibility": null,
+    "earlyBinaryLicenseId": null,
+    "publicContributionSpdx": "MIT",
+    "earlyUse": ["private", "commercial"],
+    "earlyRedistributionAllowed": false,
+    "publicLicenseScope": "getpatched-authored-contributions-only"
+  },
+  "status": "unreleased-development-candidate"
+}
