@@ -64,6 +64,10 @@
         "spdx": "MIT"
       },
       {
+        "path": "patches/CVE-2026-74860-debian-trixie.patch",
+        "spdx": "MIT"
+      },
+      {
         "path": "tests/fixtures/cve-2026-76781-catalog-harness.c",
         "spdx": "MIT"
       },
@@ -73,6 +77,10 @@
       },
       {
         "path": "tests/fixtures/cve-2026-76781-registry.xml",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-74860-python-sax.py",
         "spdx": "MIT"
       }
     ],

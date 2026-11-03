@@ -234,6 +234,48 @@
           "patchedExpectation": "The installed patched package completes catalog loading and resolves the mapping from the valid nextCatalog with no Valgrind errors."
         }
       ]
+    },
+    {
+      "id": "cve-2026-74860-debian-trixie",
+      "kind": "security",
+      "file": "CVE-2026-74860-debian-trixie.patch",
+      "sha256": "1a37381a0f447b1581e2695f41dd747b9742201e4091b51f838b00c6bb059f71",
+      "title": "Keep enumerated attribute strings alive in Python SAX callbacks",
+      "description": "Removes the extra Py_DECREF after PyList_SetItem takes ownership of each enumerated attribute name, preventing double-free and use-after-free in python3-libxml2.",
+      "cves": [
+        "CVE-2026-74860"
+      ],
+      "upstream": {
+        "repository": "https://gitlab.gnome.org/GNOME/libxml2",
+        "commit": "f41e1865781f74d1cadfe2fbdfeefed946026f12",
+        "url": "https://gitlab.gnome.org/GNOME/libxml2/-/commit/f41e1865781f74d1cadfe2fbdfeefed946026f12"
+      },
+      "appliesTo": [
+        {
+          "target": "debian-trixie-amd64",
+          "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3"
+        }
+      ],
+      "dep3": {
+        "origin": "Backport of upstream commit f41e186 for Debian Trixie's 2.9.14-based source tree.",
+        "forwarded": "not-needed",
+        "lastUpdate": "2026-11-03"
+      },
+      "referenceFiles": [],
+      "tests": [
+        {
+          "id": "python-sax-enumerated-attribute-double-free",
+          "runner": "getpatched/platform:verification/regression.py",
+          "fixtures": [
+            {
+              "path": "tests/fixtures/cve-2026-74860-python-sax.py",
+              "sha256": "862fa04998e693d4ce82bd25c65c1d424cec5d62b6315bd17e69f64805360aeb"
+            }
+          ],
+          "baselineExpectation": "The exact installed Debian Trixie python3-libxml2 package must reach the attributeDecl probe and terminate by SIGSEGV or SIGABRT while parsing an enumerated DTD attribute.",
+          "patchedExpectation": "The installed patched Python binding completes the same SAX callback and exits successfully; the libxml2 C consumer check also passes."
+        }
+      ]
     }
   ]
 }
