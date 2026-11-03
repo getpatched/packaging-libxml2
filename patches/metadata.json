@@ -267,14 +267,10 @@
           "fixtures": [
             {
               "path": "tests/fixtures/cve-2026-86141-regexp-alloc-failure.c",
-              "sha256": "e0dfc80f9fb2791b3150cddaa9092cab71d78d091c10b3dcc3b0bfb11db34dd7"
-            },
-            {
-              "path": "tests/fixtures/cve-2026-86141-xmlstrdup-interposer.c",
-              "sha256": "7ffc4be70e4e156f15339cb618e32d9a6760876c77a8d334e151ce6b7c973b82"
+              "sha256": "ca0b8fe56b65160d8b3efdc7c0309580faee1802ee5142dfed18f25b0297a032"
             }
           ],
-          "baselineExpectation": "A narrowly targeted LD_PRELOAD xmlStrdup interposer fails allocation of the exact regexp string. Memcheck reports a NULL invalid read in strlen through xmlRegNewParserCtxt and xmlRegexpCompile, followed by SIGSEGV.",
+          "baselineExpectation": "The test installs a custom xmlMemSetup strdup callback, then fails the next xmlStrdup during xmlRegexpCompile. Memcheck must report a NULL invalid read in strlen through xmlRegNewParserCtxt and xmlRegexpCompile, followed by SIGSEGV.",
           "patchedExpectation": "The installed patched package handles the injected allocation failure, returns NULL from compilation, and exits with zero Memcheck errors; the xmllint consumer check also passes."
         }
       ]
