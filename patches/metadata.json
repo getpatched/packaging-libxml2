@@ -234,6 +234,50 @@
           "patchedExpectation": "The installed patched package completes catalog loading and resolves the mapping from the valid nextCatalog with no Valgrind errors."
         }
       ]
+    },
+    {
+      "id": "cve-2026-86141-debian-trixie",
+      "kind": "security",
+      "file": "CVE-2026-86141-debian-trixie.patch",
+      "sha256": "8f9d7528fdd5b1b717f103f5660c0e86904863f965822121d7edc2c4a0eefce1",
+      "title": "Check regexp string duplication before reading its length",
+      "description": "Checks the xmlStrdup result in xmlRegNewParserCtxt before strlen can dereference a NULL pointer after allocation failure.",
+      "cves": ["CVE-2026-86141"],
+      "upstream": {
+        "repository": "https://gitlab.gnome.org/GNOME/libxml2",
+        "commit": "e89a8aae4c9b40cdafcf66b3f9e57c62db37bb55",
+        "url": "https://github.com/GNOME/libxml2/commit/e89a8aae4c9b40cdafcf66b3f9e57c62db37bb55"
+      },
+      "appliesTo": [
+        {
+          "target": "debian-trixie-amd64",
+          "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3"
+        }
+      ],
+      "dep3": {
+        "origin": "Backport of GNOME libxml2 commit e89a8aae for Debian Trixie's 2.9.14-based source.",
+        "forwarded": "not-needed",
+        "lastUpdate": "2026-11-03"
+      },
+      "referenceFiles": [],
+      "tests": [
+        {
+          "id": "regexp-allocation-failure-null-check",
+          "runner": "getpatched/platform:verification/regression.py",
+          "fixtures": [
+            {
+              "path": "tests/fixtures/cve-2026-86141-regexp-alloc-failure.c",
+              "sha256": "e0dfc80f9fb2791b3150cddaa9092cab71d78d091c10b3dcc3b0bfb11db34dd7"
+            },
+            {
+              "path": "tests/fixtures/cve-2026-86141-xmlstrdup-interposer.c",
+              "sha256": "7ffc4be70e4e156f15339cb618e32d9a6760876c77a8d334e151ce6b7c973b82"
+            }
+          ],
+          "baselineExpectation": "A narrowly targeted LD_PRELOAD xmlStrdup interposer fails allocation of the exact regexp string. Memcheck reports a NULL invalid read in strlen through xmlRegNewParserCtxt and xmlRegexpCompile, followed by SIGSEGV.",
+          "patchedExpectation": "The installed patched package handles the injected allocation failure, returns NULL from compilation, and exits with zero Memcheck errors; the xmllint consumer check also passes."
+        }
+      ]
     }
   ]
 }

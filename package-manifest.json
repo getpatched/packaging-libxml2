@@ -74,6 +74,18 @@
       {
         "path": "tests/fixtures/cve-2026-76781-registry.xml",
         "spdx": "MIT"
+      },
+      {
+        "path": "patches/CVE-2026-86141-debian-trixie.patch",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-86141-regexp-alloc-failure.c",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-86141-xmlstrdup-interposer.c",
+        "spdx": "MIT"
       }
     ],
     "upstreamLicenses": "preserve"
