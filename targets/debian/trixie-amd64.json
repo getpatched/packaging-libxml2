@@ -11,7 +11,7 @@
   "source": {
     "format": "3.0 (quilt)",
     "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
-    "publication": "https://security-tracker.debian.org/tracker/CVE-2026-76781",
+    "publication": "https://security-tracker.debian.org/tracker/CVE-2026-86141",
     "publishedAt": "2026-06-07T17:02:23Z",
     "descriptor": {
       "name": "libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.dsc",
@@ -42,8 +42,8 @@
     }
   },
   "supportedSourceVersions": ["2.12.7+dfsg+really2.9.14-2.1+deb13u3"],
-  "packageVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3+getpatched3",
-  "releaseSerial": 3,
+  "packageVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3+getpatched4",
+  "releaseSerial": 4,
   "changelog": {
     "distribution": "trixie",
     "urgency": "medium",
@@ -52,7 +52,7 @@
   },
   "binaryPackages": ["libxml2", "libxml2-utils", "libxml2-dev"],
   "advisoryPackages": ["libxml2"],
-  "patches": ["cve-2026-6653-debian", "cve-2026-86144-debian-trixie", "cve-2026-76781-debian-trixie"],
+  "patches": ["cve-2026-6653-debian", "cve-2026-86144-debian-trixie", "cve-2026-76781-debian-trixie", "cve-2026-86141-debian-trixie"],
   "buildPatches": [],
   "releaseAccess": {
     "policy": "public-after-checks",

@@ -8,7 +8,7 @@ GetPatched maintains selected, tested security backports for package versions wh
 |---|---|---|---|---|
 | `ubuntu-focal-amd64` | `2.9.10+dfsg-5ubuntu0.20.04.10` | `2.9.10+dfsg-5ubuntu0.20.04.10+getpatched1` | CVE-2025-49794, CVE-2025-49796 | Existing sponsor-first development candidate |
 | `debian-bookworm-amd64` | `2.9.14+dfsg-1.3~deb12u6` | `2.9.14+dfsg-1.3~deb12u6+getpatched1` | CVE-2026-6653 | Local build and verification passed; hosted CI and public source PR pending |
-| `debian-trixie-amd64` | `2.12.7+dfsg+really2.9.14-2.1+deb13u3` | `2.12.7+dfsg+really2.9.14-2.1+deb13u3+getpatched3` | CVE-2026-6653, CVE-2026-86144, CVE-2026-76781 | Source PR #12 merged; policy-matched hosted checks passed; development verified, production release pending |
+| `debian-trixie-amd64` | `2.12.7+dfsg+really2.9.14-2.1+deb13u3` | `2.12.7+dfsg+really2.9.14-2.1+deb13u3+getpatched4` | CVE-2026-6653, CVE-2026-86144, CVE-2026-76781, CVE-2026-86141 | Candidate under hosted verification; not yet verified or published |
 
 The Debian targets are free and public-after-checks; no sponsor delay applies. They are unreleased candidates. No production package or signed APT index is published.
 
@@ -33,6 +33,8 @@ CVE-2026-6653-debian.patch backports the parser EOF ownership and stop-loop chan
 CVE-2026-86144 is a Debian Trixie-only development candidate. Debian's tracker currently marks the pinned Trixie source vulnerable; Bookworm is listed as postponed/minor and is not included. The patch adapts upstream GNOME commit `b63cd517afecb76582dd9488c55e54ceaf50de61` to Trixie's 2.9.14-based source. A loopback-only regression exercises both `xmlXIncludeProcess` and `xmlXIncludeProcessTree`: the exact installed baseline must contact the local listener despite `XML_PARSE_NONET`, while the patched package must not.
 
 CVE-2026-76781 is a Debian Trixie-only development-verified fix. Debian marks the pinned Trixie source vulnerable and Bookworm postponed/minor. It adapts upstream commit `a34c084d7a576914c1424caabdaaf5e227bb39ef` to the Trixie source tree. The installed-package regression loads a local catalog containing a valid `nextCatalog` entry followed by one missing its required `catalog` attribute, then verifies that the valid entry still resolves. Policy-matched hosted run [41633529746](https://github.com/getpatched/platform/actions/runs/41633529746) reproduced the baseline Valgrind read at address `0x30` and SIGSEGV, then passed on the `+getpatched3` package. The candidate is `candidateVerified=true` with checks passed; `releaseEligible=false` because publication is disabled. Package-aware before/after scans removed the target libxml2 findings; consumer compatibility and signed temporary APT binary/source installation also passed. Package PR [#12](https://github.com/getpatched/packaging-libxml2/pull/12) merged to `getpatched/debian-trixie`. No package or signed production index was published.
+
+CVE-2026-86141 is a Debian Trixie-only candidate. Debian's tracker marks the pinned source vulnerable and Bookworm fixed. It backports upstream commit `e89a8aae4c9b40cdafcf66b3f9e57c62db37bb55`, moving the NULL check before `strlen()` in `xmlRegNewParserCtxt`. The regression injects one `xmlStrdup` allocation failure immediately before `xmlRegexpCompile`: the installed baseline must crash after the injection marker, while the patched package must reject the regexp cleanly. This candidate remains unverified until hosted build, regression, scan, consumer, and signed APT checks pass.
 
 ## Sponsorship and licensing
 
