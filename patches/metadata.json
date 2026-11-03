@@ -103,7 +103,7 @@
               "sha256": "1e1b97af5d7c617b2b33f65cf44e3154daef357cf261b82fe7012ac438a65439"
             }
           ],
-          "baselineExpectation": "Exact-source ASan builds report a heap use-after-free; the installed-package runner must report a Valgrind invalid read through xmlParseInternalSubset.",
+          "baselineExpectation": "Exact-source ASan builds report a heap use-after-free; the installed-package runner must report a Valgrind invalid read in libxml2 during xmlReadMemory with the freed entity-stream allocation in the trace.",
           "patchedExpectation": "The source-build ASan and installed-package Valgrind probes complete without invalid accesses; a normal xmllint consumer check passes."
         }
       ]
