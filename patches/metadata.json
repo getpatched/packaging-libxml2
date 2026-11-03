@@ -267,10 +267,10 @@
           "fixtures": [
             {
               "path": "tests/fixtures/cve-2026-86141-regexp-alloc-failure.c",
-              "sha256": "ca0b8fe56b65160d8b3efdc7c0309580faee1802ee5142dfed18f25b0297a032"
+              "sha256": "2df2abdb554924196afecbbdb3767a70a83d7e3930a365c411ceca9382e7aee3"
             }
           ],
-          "baselineExpectation": "The test installs a custom xmlMemSetup strdup callback, then fails the next xmlStrdup during xmlRegexpCompile. Memcheck must report a NULL invalid read in strlen through xmlRegNewParserCtxt and xmlRegexpCompile, followed by SIGSEGV.",
+          "baselineExpectation": "A custom xmlMemSetup malloc callback fails the exact regexp-copy allocation during xmlRegexpCompile. Memcheck must report a NULL invalid read in strlen through xmlRegNewParserCtxt and xmlRegexpCompile, followed by SIGSEGV.",
           "patchedExpectation": "The installed patched package handles the injected allocation failure, returns NULL from compilation, and exits with zero Memcheck errors; the xmllint consumer check also passes."
         }
       ]
