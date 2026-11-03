@@ -41,12 +41,13 @@ GetPatched-authored recipes, patches, tests, and documentation are MIT-licensed 
 From a clean checkout on a disposable Linux Docker host:
 
     git clone https://github.com/getpatched/platform.git
-    git clone --branch getpatched/focal https://github.com/getpatched/packaging-libxml2.git
-    python3 platform/scripts/build-package.py --source packaging-libxml2 --target ubuntu-focal-amd64 --output build/libxml2
+    git -C platform checkout d0b53ed9d3eb2ae43f9fbb3d4ac20b7036207dd3
+    git clone --branch getpatched/debian-bookworm https://github.com/getpatched/packaging-libxml2.git packaging-libxml2-bookworm
+    python3 platform/scripts/build-package.py --source packaging-libxml2-bookworm --target debian-bookworm-amd64 --output build/libxml2-bookworm
 
-For the unpublished Debian candidates, use the target branch after review and merge:
+For Trixie, check out its target branch and use the same pinned platform revision:
 
-    python3 platform/scripts/build-package.py --source packaging-libxml2 --target debian-bookworm-amd64 --output build/libxml2-bookworm
-    python3 platform/scripts/build-package.py --source packaging-libxml2 --target debian-trixie-amd64 --output build/libxml2-trixie
+    git clone --branch getpatched/debian-trixie https://github.com/getpatched/packaging-libxml2.git packaging-libxml2-trixie
+    python3 platform/scripts/build-package.py --source packaging-libxml2-trixie --target debian-trixie-amd64 --output build/libxml2-trixie
 
 The builder consumes the target's pinned inputs, runs baseline and patched installed-package checks, retains scan evidence, and tests signed APT installation of the binary and source packages. It does not publish binaries. Ubuntu Pro/ESM compatibility is not tested or claimed. The prior full-source snapshot remains on the legacy branch: https://github.com/getpatched/packaging-libxml2/tree/legacy
