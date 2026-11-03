@@ -168,6 +168,72 @@
           "patchedExpectation": "Against the exact installed GetPatched package, both APIs block the loopback request; no non-loopback network access is used."
         }
       ]
+    },
+    {
+      "id": "cve-2026-76781-debian-trixie",
+      "kind": "security",
+      "file": "CVE-2026-76781-debian-trixie.patch",
+      "sha256": "6d766e92f757c1217d34ba60ee981f3ade595a9e4c25afa555c8b63172c3385d",
+      "title": "Ignore XML catalog nextCatalog entries without a catalog attribute",
+      "description": "Skips malformed nextCatalog entries before duplicate detection can dereference a missing catalog entry.",
+      "cves": [
+        "CVE-2026-76781"
+      ],
+      "upstream": {
+        "repository": "https://gitlab.gnome.org/GNOME/libxml2",
+        "commit": "a34c084d7a576914c1424caabdaaf5e227bb39ef",
+        "url": "https://gitlab.gnome.org/GNOME/libxml2/-/commit/a34c084d7a576914c1424caabdaaf5e227bb39ef"
+      },
+      "appliesTo": [
+        {
+          "target": "debian-trixie-amd64",
+          "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3"
+        }
+      ],
+      "dep3": {
+        "origin": "Backport of upstream commit a34c084 for Debian Trixie\u2019s 2.9.14-based source; the Debian CVE-2026-0992 backport adds the vulnerable duplicate-detection loop.",
+        "forwarded": "not-needed",
+        "lastUpdate": "2026-11-03"
+      },
+      "referenceFiles": [
+        {
+          "path": "tests/fixtures/cve-2026-76781-catalog-harness.c",
+          "sha256": "0d0248fc1c96cea3deb0c58dd1d01c78d1e58259f06422b208d0f49a9bd629c2",
+          "purpose": "Installed-package regression harness for catalog parsing and resolution."
+        },
+        {
+          "path": "tests/fixtures/cve-2026-76781-catalog.xml",
+          "sha256": "23d79f9a0c8f5c97d98e9a377d582f31f076e744b386d40e8615c8d018c42cbf",
+          "purpose": "Catalog fixture with one valid and one malformed nextCatalog entry."
+        },
+        {
+          "path": "tests/fixtures/cve-2026-76781-registry.xml",
+          "sha256": "e49f3f85460a16ea97301b802d1ea2350963f61516e4d0d8b8abcc0a3ba6021e",
+          "purpose": "Local next-catalog fixture preserving a deterministic system identifier mapping."
+        }
+      ],
+      "tests": [
+        {
+          "id": "catalog-next-catalog-missing-attribute",
+          "runner": "getpatched/platform:verification/regression.py",
+          "fixtures": [
+            {
+              "path": "tests/fixtures/cve-2026-76781-catalog-harness.c",
+              "sha256": "0d0248fc1c96cea3deb0c58dd1d01c78d1e58259f06422b208d0f49a9bd629c2"
+            },
+            {
+              "path": "tests/fixtures/cve-2026-76781-catalog.xml",
+              "sha256": "23d79f9a0c8f5c97d98e9a377d582f31f076e744b386d40e8615c8d018c42cbf"
+            },
+            {
+              "path": "tests/fixtures/cve-2026-76781-registry.xml",
+              "sha256": "e49f3f85460a16ea97301b802d1ea2350963f61516e4d0d8b8abcc0a3ba6021e"
+            }
+          ],
+          "baselineExpectation": "On the exact installed Debian Trixie source baseline, Valgrind must identify the NULL dereference in libxml2 catalog duplicate detection when a valid nextCatalog is followed by one without the required catalog attribute.",
+          "patchedExpectation": "The installed patched package completes catalog loading and resolves the mapping from the valid nextCatalog with no Valgrind errors."
+        }
+      ]
     }
   ]
 }
