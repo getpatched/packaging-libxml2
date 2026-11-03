@@ -58,6 +58,22 @@
       {
         "path": "tests/fixtures/cve-2026-86144-xinclude.xml",
         "spdx": "MIT"
+      },
+      {
+        "path": "patches/CVE-2026-76781-debian-trixie.patch",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-76781-catalog-harness.c",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-76781-catalog.xml",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-76781-registry.xml",
+        "spdx": "MIT"
       }
     ],
     "upstreamLicenses": "preserve"
