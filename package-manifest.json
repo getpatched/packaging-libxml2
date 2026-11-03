@@ -46,6 +46,18 @@
       {
         "path": "patches/CVE-2026-6653-debian.patch",
         "spdx": "MIT"
+      },
+      {
+        "path": "patches/CVE-2026-86144-debian-trixie.patch",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-86144-xinclude-harness.cc",
+        "spdx": "MIT"
+      },
+      {
+        "path": "tests/fixtures/cve-2026-86144-xinclude.xml",
+        "spdx": "MIT"
       }
     ],
     "upstreamLicenses": "preserve"
