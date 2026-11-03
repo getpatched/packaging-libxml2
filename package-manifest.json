@@ -82,10 +82,6 @@
       {
         "path": "tests/fixtures/cve-2026-86141-regexp-alloc-failure.c",
         "spdx": "MIT"
-      },
-      {
-        "path": "tests/fixtures/cve-2026-86141-xmlstrdup-interposer.c",
-        "spdx": "MIT"
       }
     ],
     "upstreamLicenses": "preserve"
