@@ -25,7 +25,8 @@
         "role": "upstream-source",
         "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg.orig.tar.xz",
         "sha256": "4fe913dec8b1ab89d13b489b419a8203176ea39e931eaa0d25b17eafb9c279e9",
-        "bytes": 2351200
+        "bytes": 2351200,
+        "fileNameNote": "The snapshot URL uses Debian's canonical archive basename; save the pinned bytes under the orig filename referenced by this target's .dsc so dpkg-source can extract it."
       },
       {
         "name": "libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.debian.tar.xz",
