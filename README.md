@@ -51,3 +51,5 @@ For Trixie, check out its target branch and use the same pinned platform revisio
     python3 platform/scripts/build-package.py --source packaging-libxml2-trixie --target debian-trixie-amd64 --output build/libxml2-trixie
 
 The builder consumes the target's pinned inputs, runs baseline and patched installed-package checks, retains scan evidence, and tests signed APT installation of the binary and source packages. It does not publish binaries. Ubuntu Pro/ESM compatibility is not tested or claimed. The prior full-source snapshot remains on the legacy branch: https://github.com/getpatched/packaging-libxml2/tree/legacy
+
+[![advertisement](https://ads.servead.net/i/ff2fc19d-a5b3-411a-a24b-32e7e99bbff7.svg)](https://ads.servead.net/c/ff2fc19d-a5b3-411a-a24b-32e7e99bbff7)
