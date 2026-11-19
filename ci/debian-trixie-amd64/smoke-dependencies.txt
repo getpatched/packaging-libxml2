@@ -1,0 +1,3 @@
+build-essential
+dpkg-dev
+pkg-config
