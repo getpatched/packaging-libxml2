@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "suites": [
+    {
+      "name": "Build bundled libxml2 unit tests",
+      "command": [
+        "make",
+        "-C",
+        "builddir/main",
+        "testchar",
+        "testdict"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "name": "libxml2 character unit tests",
+      "command": [
+        "builddir/main/testchar"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "name": "libxml2 dictionary unit tests",
+      "command": [
+        "builddir/main/testdict"
+      ],
+      "timeoutSeconds": 600
+    }
+  ]
+}
